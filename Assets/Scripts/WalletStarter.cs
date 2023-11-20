@@ -1,9 +1,9 @@
+using TMPro;
 using UnityEngine;
 
 public class WalletStarter : MonoBehaviour
 {
-    [SerializeField] AWalletView _aWalletView;
-    [SerializeField] AWalletModel _aWalletModel;
+    [SerializeField] private TextMeshProUGUI _text;
 
     protected void Awake()
     {
@@ -23,6 +23,7 @@ public class WalletStarter : MonoBehaviour
 
     public void CreateWalletVP()
     {
-        new WalletPresenter(_aWalletView, _aWalletModel);
+        AWalletView view = new WalletView(_text);
+        new WalletPresenter(view, WalletModel.Instance);
     }
 }

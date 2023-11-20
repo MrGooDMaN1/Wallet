@@ -1,44 +1,53 @@
 using System;
+using UnityEngine;
 
 public abstract class AWalletModel : IModel
 {
     public static AWalletModel Instance { get; protected set; }
-    public int StandardCoins { get; protected set; }
+    public int StandartCoins { get; protected set; }
     public int PremiumCoins { get; protected set; }
 
-    public event Action<int> OnCoinsChanged;
+    public event Action<int> StandartCoinsChanged;
+    public event Action<int> PremiumCoinsChanged;
 
     public AWalletModel()
     {
         if (Instance == null)
+        {
             Instance = this;
+        }
+        else
+        {
+            Debug.LogError("Second Wallet model created");
+        }
     }
 
     public AWalletModel(int startStandardCoins, int startPremiumCoins)
     {
-        StandardCoins = startStandardCoins;
+        StandartCoins = startStandardCoins;
         PremiumCoins = startPremiumCoins;
         if (Instance == null)
+        {
             Instance = this;
+        }
+        else
+        {
+            Debug.LogError("Second Wallet model created");
+        }
     }
 
-    public virtual void AddStandardCoins(int value) 
+    protected void OnStandartCoinsChanged(int coins)
     {
-        OnCoinsChanged?.Invoke(StandardCoins);
+        StandartCoinsChanged?.Invoke(coins);
     }
-    public virtual void AddPremiumCoins(int value)
+    protected void OnPremiumCoinsChanged(int coins)
     {
-        OnCoinsChanged?.Invoke(PremiumCoins);
+        PremiumCoinsChanged?.Invoke(coins);
     }
 
-    public virtual bool TrySpendStandardCoins(int value)
-    {
-        OnCoinsChanged?.Invoke(StandardCoins);
-        return true;
-    }
-    public virtual bool TrySpendPremiumCoins(int value)
-    {
-        OnCoinsChanged?.Invoke(PremiumCoins);
-        return true;
-    }
+    public abstract void AddStandardCoins(int value);
+    public abstract void AddPremiumCoins(int value);
+
+    public abstract bool TrySpendStandardCoins(int value);
+    public abstract bool TrySpendPremiumCoins(int value);
 }

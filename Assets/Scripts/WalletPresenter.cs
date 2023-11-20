@@ -1,21 +1,31 @@
-using System;
-
 public class WalletPresenter : AWalletPresenter
 {
-    public WalletPresenter(AWalletView aWalletView, AWalletModel aWalletModel) : base(aWalletView, aWalletModel) { }
+    public WalletPresenter(AWalletView walletView, AWalletModel walletModel) : base(walletView, walletModel) 
+    {
+        _view.ChangeStandartCoinsTo(AWalletModel.Instance.StandartCoins);
+        _view.ChangePremiumCoinsTo(AWalletModel.Instance.PremiumCoins);
+    }
 
 
     public override void Activate()
     {
-        _aWalletModel.OnCoinsChanged += WalletModel_OnCoinsChanged;
+        _model.StandartCoinsChanged += WalletModel_OnStandartCoinsChanged;
+        _model.PremiumCoinsChanged += WalletModel_OnPremiumCoinsChanged;
     }
 
     public override void Deactivate()
     {
-        _aWalletModel.OnCoinsChanged -= WalletModel_OnCoinsChanged;
+        _model.StandartCoinsChanged -= WalletModel_OnStandartCoinsChanged;
+        _model.PremiumCoinsChanged -= WalletModel_OnPremiumCoinsChanged;
     }
-    public override void WalletModel_OnCoinsChanged(int coins)
+
+    public void WalletModel_OnStandartCoinsChanged(int coins)
     {
-        _aWalletView.ChangeCoinsTo(coins);
+        _view.ChangeStandartCoinsTo(coins);
+    }
+
+    public void WalletModel_OnPremiumCoinsChanged(int coins)
+    {
+        _view.ChangePremiumCoinsTo(coins);
     }
 }

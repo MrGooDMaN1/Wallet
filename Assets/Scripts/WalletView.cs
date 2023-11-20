@@ -1,12 +1,21 @@
 using TMPro;
-using UnityEngine;
 
 public class WalletView : AWalletView
 {
-    public WalletView(TextMeshProUGUI textMesh) : base(textMesh) { }
-    public override void ChangeCoinsTo(int coins)
+    public TextMeshProUGUI _text;
+
+    public WalletView(TextMeshProUGUI text)
     {
-        _textMesh.text = coins.ToString();
-        base.ChangeCoinsTo(coins);
+        _text = text;
+    }
+
+    public override void ChangeStandartCoinsTo(int value)
+    {
+        _text.text = value.ToString();
+    }
+
+    public override void ChangePremiumCoinsTo(int value)
+    {
+        _text.text = value.ToString();
     }
 }

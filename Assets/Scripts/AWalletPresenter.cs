@@ -1,21 +1,15 @@
-using System;
-
 public abstract class AWalletPresenter : IPresenter
 {
-    protected AWalletView _aWalletView;
-    protected AWalletModel _aWalletModel;
+    protected AWalletView _view;
+    protected AWalletModel _model;
 
-    public AWalletPresenter(AWalletView aWalletView, AWalletModel aWalletModel)
+    public AWalletPresenter(AWalletView view, AWalletModel model)
     {
-        this._aWalletView = aWalletView;
-        this._aWalletModel = aWalletModel;
-        _aWalletModel = AWalletModel.Instance;
-        _aWalletView.ChangeCoinsTo(AWalletModel.Instance.StandardCoins);
-        _aWalletView.ChangeCoinsTo(AWalletModel.Instance.PremiumCoins);
+        _view = view;
+        _model = model;
         Activate();
     }
 
     public abstract void Activate();
     public abstract void Deactivate();
-    public abstract void WalletModel_OnCoinsChanged(int coins);
 }
