@@ -9,12 +9,7 @@ public class WalletView : AWalletView
         _text = text;
     }
 
-    public override void ChangeStandartCoinsTo(int value)
-    {
-        _text.text = value.ToString();
-    }
-
-    public override void ChangePremiumCoinsTo(int value)
+    public override void ChangeCoinsTo(int value)
     {
         _text.text = value.ToString();
     }

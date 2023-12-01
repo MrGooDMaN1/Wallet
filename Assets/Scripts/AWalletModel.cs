@@ -4,11 +4,9 @@ using UnityEngine;
 public abstract class AWalletModel : IModel
 {
     public static AWalletModel Instance { get; protected set; }
-    public int StandartCoins { get; protected set; }
-    public int PremiumCoins { get; protected set; }
+    public int Coins { get; protected set; }
 
-    public event Action<int> StandartCoinsChanged;
-    public event Action<int> PremiumCoinsChanged;
+    public event Action<int> CoinsChanged;
 
     public AWalletModel()
     {
@@ -24,8 +22,7 @@ public abstract class AWalletModel : IModel
 
     public AWalletModel(int startStandardCoins, int startPremiumCoins)
     {
-        StandartCoins = startStandardCoins;
-        PremiumCoins = startPremiumCoins;
+        Coins = startStandardCoins;
         if (Instance == null)
         {
             Instance = this;
@@ -36,18 +33,12 @@ public abstract class AWalletModel : IModel
         }
     }
 
-    protected void OnStandartCoinsChanged(int coins)
+    protected void OnCoinsChanged(int coins)
     {
-        StandartCoinsChanged?.Invoke(coins);
-    }
-    protected void OnPremiumCoinsChanged(int coins)
-    {
-        PremiumCoinsChanged?.Invoke(coins);
+        CoinsChanged?.Invoke(coins);
     }
 
-    public abstract void AddStandardCoins(int value);
-    public abstract void AddPremiumCoins(int value);
+    public abstract void AddCoins(int value); //
 
-    public abstract bool TrySpendStandardCoins(int value);
-    public abstract bool TrySpendPremiumCoins(int value);
+    public abstract bool TrySpendCoins(int value);
 }
